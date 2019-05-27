@@ -11,7 +11,7 @@ services:
 
   mysql: 
     # Build
-    build: ./mariadb/docker/10.4
+    image: mariadb:10.4
     container_name: mysql
     command: mysqld --sql_mode=""
     restart: always
