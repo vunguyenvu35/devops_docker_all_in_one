@@ -151,6 +151,8 @@ RUN set -eux; \
 	httpd -v
 
 COPY httpd-foreground /usr/local/bin/
+# update config
+ADD conf /usr/local/apache2/conf
 
 EXPOSE 80
 CMD ["httpd-foreground"]
