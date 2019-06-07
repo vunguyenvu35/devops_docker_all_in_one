@@ -1,4 +1,4 @@
-.idea/
-/public/.htaccess
-config.php
-vendor
+/status.js
+/src/status.js
+/.idea
+/.module-cache

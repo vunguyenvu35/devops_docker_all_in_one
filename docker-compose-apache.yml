@@ -43,7 +43,7 @@ services:
       - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
   httpd:
-    build: ./httpd/2.4/centos7
+    build: ./httpd/2.4/alpine
     container_name: httpd
     ports:
       - "80:80"

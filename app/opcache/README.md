@@ -1,114 +1,91 @@
-OpCacheGUI
-==========
+# opcache-gui
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PeeHaa/OpCacheGUI/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PeeHaa/OpCacheGUI/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/PeeHaa/OpCacheGUI/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/PeeHaa/OpCacheGUI/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/PeeHaa/OpCacheGUI/badges/build.png?b=master)](https://scrutinizer-ci.com/g/PeeHaa/OpCacheGUI/build-status/master)
+A clean and responsive interface for Zend OPcache information, showing statistics, settings and cached files, and providing a real-time update for the information (using jQuery and React).
 
-GUI for PHP's OpCache. I started this project to see what you can do with PHP's OpCache. There are already a couple of projects who implement something like this, but they are either a "one file to rule them all" or just not very nice looking.
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=acollington&url=https://github.com/amnuts/opcache-gui&title=opcache-gui&language=&tags=github&category=software)
+If you like this software or find it helpful then please consider [signing up to Flattr and leaving a micro-donation](https://flattr.com/@acollington).  If you don't want to do that, I hope you find it useful anyway! :-).
 
-If you are looking for a simple single file status GUI please see [Rasmus' one-page OpCache project][rasmus].
+## What's new
 
-Installation
--
+**Version 2.4.0**\
+Adds cookie store for the real-time state allowing real-time to be activated on load.  Cookie name and TTL length can be adjusted in the config
 
-For installation instructions and example configuration see the [installation wiki page](https://github.com/PeeHaa/OpCacheGUI/wiki/Installation).
+**Version 2.3.0**\
+Adds information for interned strings and PHP 5.4 compatibility
 
-Contributing
--
+**Version 2.2.2**\
+Brings in optimisations for the file listing when filtering
 
-[How to contribute](https://github.com/PeeHaa/OpCacheGUI/wiki/Contributing)
+**Version 2.2.1**\
+Has the gauges now updating with the real-time pulse and a couple rounding issues fixed
 
-License
--
+**Version 2.2.0**\
+Provides the ability to turn on/off the file list (default is on)
 
-[MIT License (`MIT`)][MIT]
+**Version 2.1.0**\
+Now provides a much easier way to configure some options, be it the poll time, toggling the ability to reset the cache, real-time updates, etc. It also allows you to show the big values (memory usage and hit rate) as gauge graphs instead of big numbers.
 
-Roadmap
--
+**Version 2.0.0**\
+Introduces the use of React.js provides the ability to seamlessly update more of the information in real-time (well, every five seconds by default) - so now the files as well as the overview get refreshed. There is an updated look, removing the gradients and going for a flatter feel. And the code in general has had an overhaul.
 
-###### v1.1.0
+### Overview
 
-- [ ] Add brazilian portuguese translations
-- [ ] Add support for the ipv6 loopback address to the firewall
+The overview will show you all the core information.  From here you'll be able to see what host and platform you're running on, what version of OPcache you're using, when it was last reset, the functions that are available, all the directives and all the statistics associated with the OPcache (number of hits, memory used, free and wasted memory, etc.)
 
-###### v2.0.0
+![Overview](http://amnuts.com/images/opcache/screenshot/overview-v2.3.0.png)
 
-- [ ] Add APCu support
-- [ ] Add Memcached support
-- [ ] Separate firewall and authentcaion layers
-- [ ] Add jailing / seperation of directories
-- [ ] Add adapter for external authentication
-- [ ] Add support to invalidate entire directories
-- [ ] Add support to warm up cache
-- [ ] Add support to manage other servers centrally
-- [ ] Delegate autoloading to Composer's PSR4 autoloader
-- [ ] Delegate routing to external library (fastroute, fasterroute, fastererroute, fastestfasterererroute)
-- [ ] Add installation page for fresh installs
-- [ ] Add update/upgrade page for existing installs
-- [ ] Add support for IPV6 addresses
-- [ ] Use proper language + region codes for translation files (http://en.wikipedia.org/wiki/IETF_language_tag) / POSIX
-- [ ] Split up individual components:
-  - [ ] IP firewall
-  - [ ] Human readable byte formatter
-  - [ ] I18n
-  - [ ] Templating system
-  - [ ] CSRF token generator
-  - [ ] Simple session storage
+### Getting started
 
-Timeline
--
+There are two ways to getting started using this gui.
 
-###### v1.1.0
+1. Simply to copy/paste or download the index.php to your server.
+2. Install via composer by running the command `composer require amnuts/opcache-gui`
 
-| Phase                                              | Start      | End        |
-| -------------------------------------------------- | ---------- | ---------- |
-| Finalize roadmap                                   | 22-05-2015 | 23-05-2015 |
-| Create v1.1.0 branch                               | 23-05-2015 | 23-05-2015 |     
-| Development                                        | 23-05-2015 | 25-05-2015 |
-| RC1 release                                        | 25-05-2015 | 31-05-2015 |
-| Stable  (when no blocking issues are found in RC1) | 31-05-2015 | 31-05-2015 |
+If you want to set the configuration options just alter the array at the top of the script:
+```php
+$options = [
+    'allow_filelist'   => true,  // show/hide the files tab
+    'allow_invalidate' => true,  // give a link to invalidate files
+    'allow_reset'      => true,  // give option to reset the whole cache
+    'allow_realtime'   => true,  // give option to enable/disable real-time updates
+    'refresh_time'     => 5,     // how often the data will refresh, in seconds
+    'size_precision'   => 2,     // Digits after decimal point
+    'size_space'       => false, // have '1MB' or '1 MB' when showing sizes
+    'charts'           => true,  // show gauge chart or just big numbers
+    'debounce_rate'    => 250    // milliseconds after key press to send keyup event when filtering
+];
+```
 
-###### v2.0.0
+### File usage
 
-| Phase                                              | Start      | End        |
-| -------------------------------------------------- | ---------- | ---------- |
-| Finalize roadmap                                   | 23-05-2015 | 24-05-2015 |
-| Create v1.1.0 branch                               | 24-05-2015 | 24-05-2015 |     
-| Development                                        | 01-06-2015 | 31-07-2015 |
-| RC1 release                                        | 01-08-2015 | 15-08-2015 |
-| RC2 release                                        | 15-08-2015 | 31-08-2015 |
-| Update documentation                               | 22-08-2015 | 31-08-2015 |
-| Stable  (when no blocking issues are found in RC2) | 01-09-2015 | 01-09-2015 |
+All the files currently in the cache are listed here with their associated statistics.  You can filter the results very easily to key in on the particular scripts you're looking for, and you can optionally set levels of the path to be hidden (handy if they all share a common root and you don't want that displayed). It will also indicate if the file cache has expired.
 
-Screenshots
--
+If you do not want to show the file list at all then you can use the `allow_filelist` configuration option; setting it to `false` will suppress the file list altogether.
 
-###### Status page
+![File list showing filtered results](http://amnuts.com/images/opcache/screenshot/files-v2.png)
 
-[![OpCacheGUI status][1]][1]
+### Reset cache
 
-###### Cached scripts
+You can reset the whole cache as well as force individual files to become invalidated so they will be cached again.
 
-[![OpCacheGUI cached scripts][2]][2]
+Both reset types can be disabled with the options `allow_reset` and `allow_invalidate`.
 
-###### Graphs
+### Real-time updates
 
-[![OpCacheGUI graphs][3]][3]
+The interface can poll every so often to get a fresh look at the opcache.  You can change how often this happens with the option `refresh_time`.  The React javascript library is used to handle data refresh so you don't need to keep reloading the page.
 
-###### Status page on mobile devices
+## Project files
 
-[![OpCacheGUI status mobile][4]][4]
+The status.jsx file is provided solely for you to be able to edit the jsx code should you wish.  For production purposes it's best to have the jsx code pre-compiled which is what's used in index.php.  You do not need to use status.jsx at all in order to use the opcache gui.  However, should you wish to compile the jsx code then you'll need to use [babel](https://babeljs.io/) or the [react-tools](https://www.npmjs.com/package/react-tools) (no longer supported with newer versions of React).
 
-###### Cached scripts page on mobile devices
+The composer.json file is provided to allow you to deploy the opcache gui a little easier by using composer.
 
-[![OpCacheGUI cached scripts mobile][5]][5]
+## Releases
 
-[rasmus]: https://github.com/rlerdorf/opcache-status
-[releases]: https://github.com/PeeHaa/OpCacheGUI/releases
-[issues]: https://github.com/PeeHaa/OpCacheGUI/issues
-[MIT]: http://spdx.org/licenses/MIT
+Releases of the GUI are available at:
 
-[1]: http://i.imgur.com/Py4YtsC.png
-[2]: http://i.imgur.com/buzbl8V.png
-[3]: http://i.imgur.com/mEhfhDA.png
-[4]: http://i.imgur.com/Mi3JegX.png
-[5]: http://i.imgur.com/4tMSEWD.png
+https://github.com/amnuts/opcache-gui/releases/
+
+# License
+
+MIT: http://acollington.mit-license.org/
