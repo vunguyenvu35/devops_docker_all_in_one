@@ -1,4 +1,3 @@
-# Build an image with name: webikecentos:7
 FROM centos:7
 
 LABEL maintainer="Vu Nguyen Vu <vunguyenvu35@gmail.com>"

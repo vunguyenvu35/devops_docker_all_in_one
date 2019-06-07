@@ -2,7 +2,7 @@ version: "3.3"
 services:
 
   redis: 
-    image: redis:latest
+    build: ./redis
     container_name: redis
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
@@ -43,7 +43,7 @@ services:
       - ./app/opcache:/var/www/app/opcache
 
   httpd:
-    build: ./httpd/2.4
+    build: ./httpd/2.4/centos7
     container_name: httpd
     ports:
       - "8080:80"
@@ -52,10 +52,9 @@ services:
       - php56
       - mysql
       - redis
-    volumes:
-      - ./logs/httpd:/var/log
-      - ./app:/usr/local/apache2/htdocs/app
-      - ./app/opcache:/usr/local/apache2/htdocs/opcache
+    # volumes:
+      # - ./logs/httpd:/var/log
+      # - ./app:/usr/local/apache2/htdocs/app
     
   nginx:
     build: ./nginx
