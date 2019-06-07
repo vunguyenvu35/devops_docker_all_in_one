@@ -41,20 +41,6 @@ services:
     volumes:
       - ./app:/var/www/app
       - ./app/opcache:/var/www/app/opcache
-
-  httpd:
-    build: ./httpd/2.4/centos7
-    container_name: httpd
-    ports:
-      - "8080:80"
-    depends_on:
-      - php
-      - php56
-      - mysql
-      - redis
-    # volumes:
-      # - ./logs/httpd:/var/log
-      # - ./app:/usr/local/apache2/htdocs/app
     
   nginx:
     build: ./nginx

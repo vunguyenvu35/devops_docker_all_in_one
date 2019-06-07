@@ -18,7 +18,9 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     yum -y --setopt=tsflags=nodocs install httpd && \
     yum clean all
 
-# ADD conf/ /etc/httpd/conf
+RUN chmod -R 777 /etc/httpd
+
+ADD conf/ /etc/httpd/conf
 
 EXPOSE 80
 

@@ -1,0 +1,7 @@
+# ignore log folder but keep empty folder
+/logs
+!/logs/.gitkeep
+
+# ignore app folder but keep empty folder
+/app
+!/logs/.gitkeep

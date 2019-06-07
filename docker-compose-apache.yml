@@ -1,0 +1,60 @@
+version: "3.3"
+services:
+
+  redis: 
+    build: ./redis
+    container_name: redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+
+  mysql: 
+    # Build
+    image: mariadb:10.4
+    container_name: mysql
+    command: mysqld --sql_mode=""
+    restart: always
+    environment:
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '123456'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      # - ./mariadb/data:/var/lib/mysql
+      - ./mariadb/:/var/mariadb
+  php:
+    build: ./php-fpm
+    container_name: php
+    volumes:
+      - ./app:/usr/local/apache2/htdocs/app
+      - ./app/opcache:/var/www/app/opcache
+
+  php56:
+    build: ./php56-fpm
+    container_name: php56
+    volumes:
+      - ./app:/usr/local/apache2/htdocs/app
+      - ./app/opcache:/var/www/app/opcache
+
+  httpd:
+    build: ./httpd/2.4/centos7
+    container_name: httpd
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+      - php56
+      - mysql
+      - redis
+    volumes:
+      - ./logs/httpd:/etc/httpd/logs
+      - ./app:/usr/local/apache2/htdocs/app
+
+   
+      
