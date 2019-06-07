@@ -55,6 +55,7 @@ services:
     volumes:
       - ./logs/httpd:/etc/httpd/logs
       - ./app:/usr/local/apache2/htdocs/app
+      - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
    
       
