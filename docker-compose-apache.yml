@@ -33,14 +33,14 @@ services:
     container_name: php
     volumes:
       - ./app:/usr/local/apache2/htdocs/app
-      - ./app/opcache:/var/www/app/opcache
+      - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
   php56:
     build: ./php56-fpm
     container_name: php56
     volumes:
       - ./app:/usr/local/apache2/htdocs/app
-      - ./app/opcache:/var/www/app/opcache
+      - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
   httpd:
     build: ./httpd/2.4/centos7
