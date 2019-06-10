@@ -33,17 +33,17 @@ services:
     container_name: php
     volumes:
       - ./app:/usr/local/apache2/htdocs/app
-      - ./app/opcache:/var/www/app/opcache
+      - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
   php56:
     build: ./php56-fpm
     container_name: php56
     volumes:
       - ./app:/usr/local/apache2/htdocs/app
-      - ./app/opcache:/var/www/app/opcache
+      - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
   httpd:
-    build: ./httpd/2.4/centos7
+    build: ./httpd/2.4/alpine
     container_name: httpd
     ports:
       - "80:80"
@@ -55,6 +55,7 @@ services:
     volumes:
       - ./logs/httpd:/etc/httpd/logs
       - ./app:/usr/local/apache2/htdocs/app
+      - ./app/opcache:/usr/local/apache2/htdocs/app/opcache
 
    
       
