@@ -151,6 +151,5 @@ COPY httpd-foreground /usr/local/bin/
 ADD conf/ /usr/local/apache2/conf
 
 EXPOSE 80
-# CMD ["httpd-foreground"]
 
 ENTRYPOINT ["sh", "/usr/local/bin/httpd-foreground"]
