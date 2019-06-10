@@ -4,7 +4,12 @@ Docker: nginx - mariadb - php - httpd
 Install docker
 Install docker-compose
 <!-- Run command -->
-docker-compose up --force-recreate --build
+# Stop all container
+docker-compose stop
+# Remove stopped container (important!)
+docker-compose rm -f
+# Start all container
+docker-compose up
 <!-- Run command with file -->
 docker-compose -f docker-compose-apache.yml up --force-recreate --build
 docker-compose -f docker-compose-nginx.yml up --force-recreate --build
