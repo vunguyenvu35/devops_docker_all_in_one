@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Make sure we're not confused by old, incompletely-shutdown httpd
 # context after restarting the container.  httpd won't start correctly
