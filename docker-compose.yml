@@ -3,7 +3,6 @@ services:
 
   redis: 
     image: redis
-    # build: ./redis
     container_name: redis
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
@@ -12,15 +11,25 @@ services:
 
   php:
     build: ./php-fpm
+    ##
+    ## All .env variables
+    ##
+    ## Source all variables defined in .env
+    ## This also makes any custom variable available in each PHP/HHVM container
+    ##
+    env_file:
+      - ./.env
     container_name: php
     depends_on:
       - redis
     volumes:
-      - ./app:/usr/local/apache2/htdocs/app
+      - ${GAU_PATH}:/usr/local/apache2/htdocs/app
 
   httpd:
     build: ./httpd/2.4/alpine
     container_name: httpd
+    env_file:
+      - ./.env
     ports:
       - "80:80"
     depends_on:
@@ -28,7 +37,7 @@ services:
       - redis
     volumes:
       - ./logs/httpd:/etc/httpd/logs
-      - ./app:/usr/local/apache2/htdocs/app
+      - ${GAU_PATH}:/usr/local/apache2/htdocs/app
 
    
       

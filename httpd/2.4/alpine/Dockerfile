@@ -46,19 +46,14 @@ RUN set -eux; \
 		gcc \
 		gnupg \
 		libc-dev \
-		# mod_proxy_html mod_xml2enc
 		libxml2-dev \
-		# mod_lua
 		lua-dev \
 		make \
-		# mod_http2
 		nghttp2-dev \
-		# mod_session_crypto
 		openssl \
 		openssl-dev \
 		pcre-dev \
 		tar \
-		# mod_deflate
 		zlib-dev \
 	; \
 	\
