@@ -1,0 +1,63 @@
+version: "3.3"
+services:
+
+  redis: 
+    image: redis
+    container_name: redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    networks:
+      gau_net:
+        ipv4_address: 172.16.238.10
+    
+  php:
+    build: ./php-fpm
+    ##
+    ## All .env variables
+    ##
+    ## Source all variables defined in .env
+    ## This also makes any custom variable available in each PHP/HHVM container
+    ##
+    env_file:
+      - ./.env
+    container_name: php
+    depends_on:
+      - redis
+    volumes:
+      - ${GAU_PATH}:/usr/local/apache2/htdocs/app
+    networks:
+      gau_net:
+        ipv4_address: 172.16.238.11
+
+  httpd:
+    build: ./httpd/2.4/alpine
+    container_name: httpd
+    env_file:
+      - ./.env
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+      - redis
+    volumes:
+      - ./logs/httpd:/etc/httpd/logs
+      - ${GAU_PATH}:/usr/local/apache2/htdocs/app
+    networks:
+      gau_net:
+        ipv4_address: 172.16.238.12
+
+################################################################################
+# NETWORK
+################################################################################
+networks:
+  gau_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+      

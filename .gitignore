@@ -6,3 +6,6 @@
 /app
 !/app/opcach/*
 !/app/.gitkeep
+
+# ignore .env
+.env
