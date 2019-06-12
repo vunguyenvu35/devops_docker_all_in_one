@@ -8,6 +8,10 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - '6379:6379'
+    networks:
+      gau_net:
+        ipv4_address: 172.16.238.10
+    
 
   php:
     build: ./php-fpm
@@ -24,6 +28,9 @@ services:
       - redis
     volumes:
       - ${GAU_PATH}:/usr/local/apache2/htdocs/app
+    networks:
+      gau_net:
+        ipv4_address: 172.16.238.11
 
   httpd:
     build: ./httpd/2.4/alpine
@@ -38,6 +45,20 @@ services:
     volumes:
       - ./logs/httpd:/etc/httpd/logs
       - ${GAU_PATH}:/usr/local/apache2/htdocs/app
+    networks:
+      gau_net:
+        ipv4_address: 172.16.238.12
 
-   
+################################################################################
+# NETWORK
+################################################################################
+networks:
+  gau_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
       
