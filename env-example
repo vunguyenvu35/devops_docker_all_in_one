@@ -1,0 +1,21 @@
+###
+###  ---------------------------------------------------
+###  GAU   R U N - T I M E   S E T T I N G S
+###  ---------------------------------------------------
+###
+###  All the following settings are applied during
+###  $ docker-compose up
+###
+###  No need to rebuild any docker images!
+###
+###  IMPORTANT:
+###  ----------
+###  When changing any values ensure to stop, rm and restart:
+###  $ docker-compose stop
+###  $ docker-compose rm -f
+###  $ docker-compose up
+###
+###  NOTE:
+###  -----
+###  For you own custom variables, scroll to the bottom
+###
