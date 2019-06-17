@@ -19,7 +19,3 @@ docker-compose -f docker-compose-nginx.yml up --force-recreate --build
 <!-- docker tag local-image:tagname reponame:tagname -->
 <!-- docker push reponame:tagname -->
 <!-- refer to https://github.com/CentOS/CentOS-Dockerfiles -->
-
-<!-- docker tag f285261d116d laravel-on-k8s:v1
-docker tag laravel-on-k8s:v1 vunguyenvu35/laravel-on-k8s:v1
-docker push vunguyenvu35/laravel-on-k8s:v1 -->
