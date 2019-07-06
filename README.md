@@ -19,3 +19,10 @@ docker-compose -f docker-compose-nginx.yml up --force-recreate --build
 <!-- docker tag local-image:tagname reponame:tagname -->
 <!-- docker push reponame:tagname -->
 <!-- refer to https://github.com/CentOS/CentOS-Dockerfiles -->
+
+
+docker tag 6469bfcf62bd httpd:2.4
+
+docker tag httpd:2.4 vunguyenvu35/httpd:2.4
+
+docker push vunguyenvu35/httpd:2.4

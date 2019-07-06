@@ -24,51 +24,6 @@ services:
       main:
         aliases:
           - php
-
-  customer-services:
-    build: ./customer-services/2.4/alpine
-    container_name: customer-services
-    depends_on:
-      - php
-      - redis
-    volumes:
-      - ./logs/httpd:/etc/httpd/logs
-      - ./app:/usr/local/apache2/htdocs/app
-    networks:
-      main:
-        aliases:
-          - customer-services
-
-  shop-service:
-    build: ./shop-service/2.4/alpine
-    container_name: shop-service
-    depends_on:
-      - php
-      - redis
-    volumes:
-      - ./logs/httpd:/etc/httpd/logs
-      - ./app:/usr/local/apache2/htdocs/app
-    networks:
-      main:
-        aliases:
-          - shop-service
-
-  front-end:
-    build: ./front-end/2.4/alpine
-    container_name: front-end
-    ports:
-      - "80:80"
-    depends_on:
-      - php
-      - redis
-    volumes:
-      - ./logs/httpd:/etc/httpd/logs
-      - ./app:/usr/local/apache2/htdocs/app
-    networks:
-      main:
-        aliases:
-          - front-end
-
 networks:
   main:
 
